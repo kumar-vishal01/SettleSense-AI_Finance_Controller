@@ -1,0 +1,43 @@
+# SettleSense — local stack (phase 1: health endpoint + dashboard scaffold).
+#   docker compose up --build
+# Backend: http://localhost:8000/health   Dashboard: http://localhost:5173
+#
+# Secrets are NOT defined here: set SETTLESENSE_AI_API_KEY etc. in a local
+# .env file (see .env.example) or your shell; compose passes them through.
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      SETTLESENSE_ENV: docker
+      SETTLESENSE_TIMEZONE: ${SETTLESENSE_TIMEZONE:-Asia/Kolkata}
+      SETTLESENSE_DB_PATH: /app/data/settlesense.db
+      SETTLESENSE_LOG_LEVEL: ${SETTLESENSE_LOG_LEVEL:-info}
+    ports:
+      - "8000:8000"
+    volumes:
+      - settlesense_data:/app/data   # persist the SQLite database across rebuilds
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      # Vite proxy target inside the compose network.
+      VITE_PROXY_TARGET: http://backend:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  settlesense_data:
