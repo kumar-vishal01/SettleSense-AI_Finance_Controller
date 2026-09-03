@@ -1,0 +1,33 @@
+{
+  "bank_rows": 412,
+  "currency": "INR",
+  "dataset_version": "synthetic-v2",
+  "expected_status_counts": {
+    "AMOUNT_MISMATCH": 30,
+    "DUPLICATE": 15,
+    "FULLY_RECONCILED": 355,
+    "MISSING_BANK_CREDIT": 20,
+    "MISSING_IN_SETTLEMENT": 25,
+    "NEEDS_HUMAN_REVIEW": 5,
+    "TIMING_DELAY": 50
+  },
+  "ledger_rows": 505,
+  "scenario_plan": {
+    "adjustment": 5,
+    "ambiguous_review": 5,
+    "amount_mismatch": 30,
+    "clean": 285,
+    "delayed_bank_credit": 50,
+    "duplicate_bank": 5,
+    "duplicate_ledger": 5,
+    "duplicate_settlement": 5,
+    "missing_bank_credit": 20,
+    "missing_settlement": 25,
+    "missing_utr": 40,
+    "refund": 10,
+    "same_amount_clean": 15
+  },
+  "seed": 42,
+  "settlement_rows": 495,
+  "total_payments": 500
+}
