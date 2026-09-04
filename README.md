@@ -8,10 +8,6 @@ SettleSense is an AI-powered finance-operations system that reconciles internal 
 
 **Built for the Razorpay AI Buildathon 2026 — Track 04: AI Finance Controller**
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
-[![Python 3.12](https://img.shields.io/badge/python-3.12-blue)]()
-[![License](https://img.shields.io/badge/license-MIT-green)]()
-
 ---
 
 ## Table of Contents
