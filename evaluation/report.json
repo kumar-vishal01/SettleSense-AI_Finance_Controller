@@ -1,0 +1,741 @@
+{
+  "dataset_version": "synthetic-v2",
+  "seed": 42,
+  "total_records": 100,
+  "records_processed": 100,
+  "correctly_matched": 71,
+  "automatic_matches": 71,
+  "match_rate": 0.71,
+  "precision": 1.0,
+  "recall": 1.0,
+  "exception_capture_rate": 1.0,
+  "monetary_variance_paise": -150000,
+  "max_monetary_variance_paise": 120000,
+  "processing_time_ms": 93.5,
+  "records_per_second": 1070.0,
+  "false_automatic_matches": [],
+  "unresolved_high_value_cases": [
+    {
+      "payment_id": "pay_069",
+      "status": "MISSING_BANK_CREDIT",
+      "severity": "high",
+      "exposure_paise": 46417568,
+      "variance_paise": null,
+      "expected_amount_paise": 46417568,
+      "reason": "no bank credit found and settlement is 6 days old (beyond the delay window)",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_097",
+      "status": "DUPLICATE",
+      "severity": "high",
+      "exposure_paise": 44773408,
+      "variance_paise": null,
+      "expected_amount_paise": 44773408,
+      "reason": "bank statement contains repeated rows for this settlement's reference (bank_097)",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_072",
+      "status": "DUPLICATE",
+      "severity": "high",
+      "exposure_paise": 44166700,
+      "variance_paise": null,
+      "expected_amount_paise": 44166700,
+      "reason": "settlement entity_id(s) ent_072 appear more than once in the settlement report",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_034",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 41414202,
+      "variance_paise": null,
+      "expected_amount_paise": 41414202,
+      "reason": "settled 2 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_058",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 41386765,
+      "variance_paise": null,
+      "expected_amount_paise": 41386765,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_090",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 40689029,
+      "variance_paise": null,
+      "expected_amount_paise": 40689029,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_018",
+      "status": "MISSING_BANK_CREDIT",
+      "severity": "high",
+      "exposure_paise": 40263417,
+      "variance_paise": null,
+      "expected_amount_paise": 40263417,
+      "reason": "no bank credit found and settlement is 5 days old (beyond the delay window)",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_064",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 38166402,
+      "variance_paise": null,
+      "expected_amount_paise": 38166402,
+      "reason": "settled 1 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_081",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 35787892,
+      "variance_paise": null,
+      "expected_amount_paise": 35787892,
+      "reason": "settled 1 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_084",
+      "status": "MISSING_IN_SETTLEMENT",
+      "severity": "high",
+      "exposure_paise": 34202700,
+      "variance_paise": null,
+      "expected_amount_paise": 34202700,
+      "reason": "no settlement row matches the payment by payment_id or order_id",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_029",
+      "status": "MISSING_IN_SETTLEMENT",
+      "severity": "high",
+      "exposure_paise": 31269900,
+      "variance_paise": null,
+      "expected_amount_paise": 31269900,
+      "reason": "no settlement row matches the payment by payment_id or order_id",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_005",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 30628692,
+      "variance_paise": null,
+      "expected_amount_paise": 30628692,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_051",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "severity": "medium",
+      "exposure_paise": 26713035,
+      "variance_paise": null,
+      "expected_amount_paise": 26713035,
+      "reason": "2 bank entries are plausible on amount and date alone; no identifier evidence distinguishes them",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_060",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 25405538,
+      "variance_paise": null,
+      "expected_amount_paise": 25405538,
+      "reason": "settled 1 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_003",
+      "status": "MISSING_BANK_CREDIT",
+      "severity": "high",
+      "exposure_paise": 20543456,
+      "variance_paise": null,
+      "expected_amount_paise": 20543456,
+      "reason": "no bank credit found and settlement is 5 days old (beyond the delay window)",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_074",
+      "status": "DUPLICATE",
+      "severity": "high",
+      "exposure_paise": 19975900,
+      "variance_paise": null,
+      "expected_amount_paise": 19975900,
+      "reason": "payment_id appears 2 times in the internal ledger (rows: int_074, int_074_dup)",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_048",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 17049604,
+      "variance_paise": null,
+      "expected_amount_paise": 17049604,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_047",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 16901777,
+      "variance_paise": null,
+      "expected_amount_paise": 16901777,
+      "reason": "settled 1 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_091",
+      "status": "MISSING_IN_SETTLEMENT",
+      "severity": "high",
+      "exposure_paise": 16154000,
+      "variance_paise": null,
+      "expected_amount_paise": 16154000,
+      "reason": "no settlement row matches the payment by payment_id or order_id",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_046",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "exposure_paise": 15720724,
+      "variance_paise": null,
+      "expected_amount_paise": 15720724,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_079",
+      "status": "MISSING_IN_SETTLEMENT",
+      "severity": "high",
+      "exposure_paise": 8896900,
+      "variance_paise": null,
+      "expected_amount_paise": 8896900,
+      "reason": "no settlement row matches the payment by payment_id or order_id",
+      "requires_review": true
+    },
+    {
+      "payment_id": "pay_076",
+      "status": "MISSING_BANK_CREDIT",
+      "severity": "high",
+      "exposure_paise": 2763896,
+      "variance_paise": null,
+      "expected_amount_paise": 2763896,
+      "reason": "no bank credit found and settlement is 5 days old (beyond the delay window)",
+      "requires_review": true
+    }
+  ],
+  "high_value_threshold_paise": 1000000,
+  "status_counts": {
+    "FULLY_RECONCILED": 71,
+    "MISSING_IN_SETTLEMENT": 5,
+    "MISSING_BANK_CREDIT": 4,
+    "AMOUNT_MISMATCH": 6,
+    "DUPLICATE": 3,
+    "TIMING_DELAY": 10,
+    "NEEDS_HUMAN_REVIEW": 1
+  },
+  "exception_count": 29,
+  "scenario_capture": {
+    "adjustment": {
+      "captured": 1,
+      "total": 1
+    },
+    "ambiguous_review": {
+      "captured": 1,
+      "total": 1
+    },
+    "amount_mismatch": {
+      "captured": 6,
+      "total": 6
+    },
+    "clean": {
+      "captured": 57,
+      "total": 57
+    },
+    "delayed_bank_credit": {
+      "captured": 10,
+      "total": 10
+    },
+    "duplicate_bank": {
+      "captured": 1,
+      "total": 1
+    },
+    "duplicate_ledger": {
+      "captured": 1,
+      "total": 1
+    },
+    "duplicate_settlement": {
+      "captured": 1,
+      "total": 1
+    },
+    "missing_bank_credit": {
+      "captured": 4,
+      "total": 4
+    },
+    "missing_settlement": {
+      "captured": 5,
+      "total": 5
+    },
+    "missing_utr": {
+      "captured": 8,
+      "total": 8
+    },
+    "refund": {
+      "captured": 2,
+      "total": 2
+    },
+    "same_amount_clean": {
+      "captured": 3,
+      "total": 3
+    }
+  },
+  "status_mismatches": [],
+  "validation": {
+    "skipped_rows": 0,
+    "errors": []
+  },
+  "exceptions": [
+    {
+      "payment_id": "pay_027",
+      "status": "AMOUNT_MISMATCH",
+      "severity": "high",
+      "variance_paise": -120000,
+      "expected_amount_paise": 3024009,
+      "reason": "UTR matched, but bank credit is INR 1200.00 lower than the expected net (bank entry bank_027)",
+      "evidence": [
+        "pay_027",
+        "int_027",
+        "ent_027",
+        "setl_027",
+        "UTR027",
+        "bank_027"
+      ]
+    },
+    {
+      "payment_id": "pay_003",
+      "status": "MISSING_BANK_CREDIT",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 20543456,
+      "reason": "no bank credit found and settlement is 5 days old (beyond the delay window)",
+      "evidence": [
+        "pay_003",
+        "int_003",
+        "ent_003",
+        "setl_003",
+        "UTR003"
+      ]
+    },
+    {
+      "payment_id": "pay_018",
+      "status": "MISSING_BANK_CREDIT",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 40263417,
+      "reason": "no bank credit found and settlement is 5 days old (beyond the delay window)",
+      "evidence": [
+        "pay_018",
+        "int_018",
+        "ent_018",
+        "setl_018",
+        "UTR018"
+      ]
+    },
+    {
+      "payment_id": "pay_029",
+      "status": "MISSING_IN_SETTLEMENT",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 31269900,
+      "reason": "no settlement row matches the payment by payment_id or order_id",
+      "evidence": [
+        "pay_029",
+        "int_029"
+      ]
+    },
+    {
+      "payment_id": "pay_039",
+      "status": "MISSING_IN_SETTLEMENT",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 606900,
+      "reason": "no settlement row matches the payment by payment_id or order_id",
+      "evidence": [
+        "pay_039",
+        "int_039"
+      ]
+    },
+    {
+      "payment_id": "pay_069",
+      "status": "MISSING_BANK_CREDIT",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 46417568,
+      "reason": "no bank credit found and settlement is 6 days old (beyond the delay window)",
+      "evidence": [
+        "pay_069",
+        "int_069",
+        "ent_069",
+        "setl_069",
+        "UTR069"
+      ]
+    },
+    {
+      "payment_id": "pay_072",
+      "status": "DUPLICATE",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 44166700,
+      "reason": "settlement entity_id(s) ent_072 appear more than once in the settlement report",
+      "evidence": [
+        "pay_072",
+        "int_072",
+        "ent_072",
+        "ent_072"
+      ]
+    },
+    {
+      "payment_id": "pay_074",
+      "status": "DUPLICATE",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 19975900,
+      "reason": "payment_id appears 2 times in the internal ledger (rows: int_074, int_074_dup)",
+      "evidence": [
+        "pay_074",
+        "int_074",
+        "int_074_dup"
+      ]
+    },
+    {
+      "payment_id": "pay_076",
+      "status": "MISSING_BANK_CREDIT",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 2763896,
+      "reason": "no bank credit found and settlement is 5 days old (beyond the delay window)",
+      "evidence": [
+        "pay_076",
+        "int_076",
+        "ent_076",
+        "setl_076",
+        "UTR076"
+      ]
+    },
+    {
+      "payment_id": "pay_079",
+      "status": "MISSING_IN_SETTLEMENT",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 8896900,
+      "reason": "no settlement row matches the payment by payment_id or order_id",
+      "evidence": [
+        "pay_079",
+        "int_079"
+      ]
+    },
+    {
+      "payment_id": "pay_084",
+      "status": "MISSING_IN_SETTLEMENT",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 34202700,
+      "reason": "no settlement row matches the payment by payment_id or order_id",
+      "evidence": [
+        "pay_084",
+        "int_084"
+      ]
+    },
+    {
+      "payment_id": "pay_091",
+      "status": "MISSING_IN_SETTLEMENT",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 16154000,
+      "reason": "no settlement row matches the payment by payment_id or order_id",
+      "evidence": [
+        "pay_091",
+        "int_091"
+      ]
+    },
+    {
+      "payment_id": "pay_097",
+      "status": "DUPLICATE",
+      "severity": "high",
+      "variance_paise": null,
+      "expected_amount_paise": 44773408,
+      "reason": "bank statement contains repeated rows for this settlement's reference (bank_097)",
+      "evidence": [
+        "pay_097",
+        "int_097",
+        "ent_097",
+        "setl_097",
+        "UTR097",
+        "bank_097"
+      ]
+    },
+    {
+      "payment_id": "pay_100",
+      "status": "AMOUNT_MISMATCH",
+      "severity": "medium",
+      "variance_paise": 90000,
+      "expected_amount_paise": 12802850,
+      "reason": "UTR matched, but bank credit is INR 900.00 higher than the expected net (bank entry bank_100)",
+      "evidence": [
+        "pay_100",
+        "int_100",
+        "ent_100",
+        "setl_100",
+        "UTR100",
+        "bank_100"
+      ]
+    },
+    {
+      "payment_id": "pay_067",
+      "status": "AMOUNT_MISMATCH",
+      "severity": "medium",
+      "variance_paise": -60000,
+      "expected_amount_paise": 19705705,
+      "reason": "UTR matched, but bank credit is INR 600.00 lower than the expected net (bank entry bank_067)",
+      "evidence": [
+        "pay_067",
+        "int_067",
+        "ent_067",
+        "setl_067",
+        "UTR067",
+        "bank_067"
+      ]
+    },
+    {
+      "payment_id": "pay_025",
+      "status": "AMOUNT_MISMATCH",
+      "severity": "medium",
+      "variance_paise": -45000,
+      "expected_amount_paise": 13673701,
+      "reason": "UTR matched, but bank credit is INR 450.00 lower than the expected net (bank entry bank_025)",
+      "evidence": [
+        "pay_025",
+        "int_025",
+        "ent_025",
+        "setl_025",
+        "UTR025",
+        "bank_025"
+      ]
+    },
+    {
+      "payment_id": "pay_010",
+      "status": "AMOUNT_MISMATCH",
+      "severity": "medium",
+      "variance_paise": -30000,
+      "expected_amount_paise": 47659549,
+      "reason": "UTR matched, but bank credit is INR 300.00 lower than the expected net (bank entry bank_010)",
+      "evidence": [
+        "pay_010",
+        "int_010",
+        "ent_010",
+        "setl_010",
+        "UTR010",
+        "bank_010"
+      ]
+    },
+    {
+      "payment_id": "pay_065",
+      "status": "AMOUNT_MISMATCH",
+      "severity": "medium",
+      "variance_paise": 15000,
+      "expected_amount_paise": 24904840,
+      "reason": "UTR matched, but bank credit is INR 150.00 higher than the expected net (bank entry bank_065)",
+      "evidence": [
+        "pay_065",
+        "int_065",
+        "ent_065",
+        "setl_065",
+        "UTR065",
+        "bank_065"
+      ]
+    },
+    {
+      "payment_id": "pay_005",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 30628692,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_005",
+        "int_005",
+        "ent_005",
+        "setl_005",
+        "UTR005"
+      ]
+    },
+    {
+      "payment_id": "pay_034",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 41414202,
+      "reason": "settled 2 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_034",
+        "int_034",
+        "ent_034",
+        "setl_034",
+        "UTR034"
+      ]
+    },
+    {
+      "payment_id": "pay_046",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 15720724,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_046",
+        "int_046",
+        "ent_046",
+        "setl_046",
+        "UTR046"
+      ]
+    },
+    {
+      "payment_id": "pay_047",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 16901777,
+      "reason": "settled 1 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_047",
+        "int_047",
+        "ent_047",
+        "setl_047",
+        "UTR047"
+      ]
+    },
+    {
+      "payment_id": "pay_048",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 17049604,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_048",
+        "int_048",
+        "ent_048",
+        "setl_048",
+        "UTR048"
+      ]
+    },
+    {
+      "payment_id": "pay_051",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 26713035,
+      "reason": "2 bank entries are plausible on amount and date alone; no identifier evidence distinguishes them",
+      "evidence": [
+        "pay_051",
+        "int_051",
+        "ent_051",
+        "setl_051",
+        "bank_051a",
+        "bank_051b"
+      ]
+    },
+    {
+      "payment_id": "pay_058",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 41386765,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_058",
+        "int_058",
+        "ent_058",
+        "setl_058",
+        "UTR058"
+      ]
+    },
+    {
+      "payment_id": "pay_060",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 25405538,
+      "reason": "settled 1 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_060",
+        "int_060",
+        "ent_060",
+        "setl_060",
+        "UTR060"
+      ]
+    },
+    {
+      "payment_id": "pay_064",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 38166402,
+      "reason": "settled 1 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_064",
+        "int_064",
+        "ent_064",
+        "setl_064",
+        "UTR064"
+      ]
+    },
+    {
+      "payment_id": "pay_081",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 35787892,
+      "reason": "settled 1 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_081",
+        "int_081",
+        "ent_081",
+        "setl_081",
+        "UTR081"
+      ]
+    },
+    {
+      "payment_id": "pay_090",
+      "status": "TIMING_DELAY",
+      "severity": "medium",
+      "variance_paise": null,
+      "expected_amount_paise": 40689029,
+      "reason": "settled 0 day(s) before batch as_of; credit plausibly still in transit",
+      "evidence": [
+        "pay_090",
+        "int_090",
+        "ent_090",
+        "setl_090",
+        "UTR090"
+      ]
+    }
+  ],
+  "source_rows": {
+    "ledger": 101,
+    "settlements": 99,
+    "bank": 84
+  }
+}
