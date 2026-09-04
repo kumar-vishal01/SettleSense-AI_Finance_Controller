@@ -1,10 +1,10 @@
-# ClearLedger
+# SettleSense -- AI Finance Controller
 
 ## AI Finance Control Center for Payment Reconciliation
 
 > Every payment accounted for.
 
-ClearLedger is an AI-powered finance-operations system that reconciles internal payment records, Razorpay-style settlement reports, and bank statement entries. It processes a complete batch of financial records, automatically resolves high-confidence matches, calculates cash position, measures reconciliation accuracy, and escalates uncertain cases with evidence-backed explanations.
+SettleSense is an AI-powered finance-operations system that reconciles internal payment records, Razorpay-style settlement reports, and bank statement entries. It processes a complete batch of financial records, automatically resolves high-confidence matches, calculates cash position, measures reconciliation accuracy, and escalates uncertain cases with evidence-backed explanations.
 
 **Built for the Razorpay AI Buildathon 2026 — Track 04: AI Finance Controller**
 
@@ -51,7 +51,7 @@ Finance teams reconcile payment data manually using spreadsheets, which creates 
 
 ## Solution
 
-ClearLedger automates the three-way reconciliation workflow:
+SettleSense automates the three-way reconciliation workflow:
 
 ```text
 Internal Payment Ledger
