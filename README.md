@@ -222,3 +222,363 @@ The system:
 ---
 
 ## Architecture
+
+┌─────────────────────────────────────────────────────────────┐
+│ Frontend (React) │
+│ Overview | Reconciliation | Exceptions | Cash | AI | Upload │
+└─────────────────────────────────────────────────────────────┘
+↓ HTTPS
+┌─────────────────────────────────────────────────────────────┐
+│ Backend (FastAPI + Python) │
+│ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌───────────┐ │
+│ │ Ingestion │ │Validation │ │Normalization│ │ Matching │ │
+│ └────────────┘ └────────────┘ └────────────┘ └───────────┘ │
+│ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌───────────┐ │
+│ │Reconciliation│ │Exceptions │ │ Metrics │ │ Cash │ │
+│ └────────────┘ └────────────┘ └────────────┘ └───────────┘ │
+│ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌───────────┐ │
+│ │ Database │ │ Audit │ │ Tools │ │ AI Agent │ │
+│ └────────────┘ └────────────┘ └────────────┘ └───────────┘ │
+└─────────────────────────────────────────────────────────────┘
+↓
+┌─────────────────────────────────────────────────────────────┐
+│ Data Sources (CSV/API) │
+│ Internal Ledger | Settlement Report | Bank Statement │
+└─────────────────────────────────────────────────────────────┘
+
+
+
+### Key Design Decisions
+
+1. **Deterministic first, AI second**: Financial matching uses rules, not LLMs.
+2. **Integer paise**: All money calculations use paise to avoid floating-point errors.
+3. **Evidence over confidence**: Every match includes source IDs and method.
+4. **Human review is valid**: Ambiguous records are escalated, not forced.
+5. **Idempotent processing**: Rerunning the same batch produces the same result.
+6. **Synthetic data only**: Public demo uses generated data, not real financial records.
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Python 3.12+
+- Node.js 20+
+- Docker (optional)
+
+### Quick Start with Docker
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/clearledger.git
+cd clearledger
+
+# Start all services
+docker-compose up --build
+
+# Access the application
+# Backend: http://localhost:8000
+# Frontend: http://localhost:3000
+# API Docs: http://localhost:8000/docs
+```
+
+### Manual Installation
+
+#### Backend
+
+```bash
+# Navigate to backend
+cd backend
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Copy environment variables
+cp .env.example .env
+
+# Run database migrations
+python -m scripts.migrate
+
+# Start the server
+uvicorn main:app --reload
+```
+
+#### Frontend
+
+```bash
+# Navigate to frontend
+cd frontend
+
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.example .env.local
+
+# Start development server
+npm run dev
+```
+
+---
+
+## Usage
+
+### 1. Generate Synthetic Data
+
+```bash
+python scripts/generate_data.py
+```
+
+This creates:
+
+- `data/internal_ledger.csv` — 100 payment records
+- `data/settlements.csv` — 95 settlement records
+- `data/bank_statement.csv` — 89 bank entries
+- `data/ground_truth.csv` — Evaluation labels
+
+### 2. Upload Data
+
+Open the dashboard and navigate to **Batch Upload**.
+
+Upload the three CSV files:
+
+1. `internal_ledger.csv`
+2. `settlements.csv`
+3. `bank_statement.csv`
+
+### 3. Run Reconciliation
+
+Click **Run Reconciliation**.
+
+The system will:
+
+- Validate all files.
+- Normalize records.
+- Match payments to settlements.
+- Match settlements to bank credits.
+- Calculate expected net amounts.
+- Assign reconciliation statuses.
+- Generate exceptions.
+- Calculate metrics and cash position.
+
+### 4. Review Results
+
+Navigate to:
+
+- **Overview** — Summary metrics and priority exceptions.
+- **Reconciliation** — Full table with search and filters.
+- **Exceptions** — Actionable queue with evidence.
+- **Cash Position** — Actual, expected, and forecast cash.
+- **Transaction Trace** — Evidence trail for individual payments.
+- **AI Assistant** — Ask questions about the batch.
+
+### 5. Export Report
+
+Click **Export Report** to download reconciliation results as CSV.
+
+---
+
+## Data
+
+### Synthetic Dataset
+
+SettleSense uses a deliberately imperfect synthetic dataset containing 100 logical payment records:
+
+| Scenario | Count |
+|----------|-------|
+| Clean matches | 60 |
+| Delayed bank credits | 10 |
+| Missing UTR | 8 |
+| Amount mismatches | 6 |
+| Missing settlements | 5 |
+| Missing bank credits | 4 |
+| Duplicates | 3 |
+| Refunds | 2 |
+| Adjustments | 1 |
+| Ambiguous match | 1 |
+
+### Ground Truth
+
+A separate `ground_truth.csv` file contains the expected outcome for each payment. This is used **only for evaluation** and never during runtime reconciliation.
+
+### Data Privacy
+
+- ✅ Uses synthetic data only.
+- ✅ No real customer financial information.
+- ✅ No real bank statements.
+- ✅ No payment credentials.
+- ✅ No secrets in code or repository.
+
+---
+
+## API Reference
+
+### Health Check
+
+```http
+GET /health
+```
+
+Response:
+
+```json
+{
+  "status": "ok",
+  "version": "1.0.0"
+}
+```
+
+### Create Batch
+
+```http
+POST /api/v1/batches
+```
+
+Request: Multipart form with `internal_ledger`, `settlements`, `bank_statement`.
+
+Response:
+
+```json
+{
+  "batch_id": "batch_001",
+  "status": "VALIDATED",
+  "internal_rows": 100,
+  "settlement_rows": 95,
+  "bank_rows": 89,
+  "validation_errors": []
+}
+```
+
+### Run Reconciliation
+
+```http
+POST /api/v1/batches/{batch_id}/reconcile
+```
+
+Response:
+
+```json
+{
+  "batch_id": "batch_001",
+  "status": "COMPLETED",
+  "records_processed": 100,
+  "processing_time_ms": 842
+}
+```
+
+### Get Results
+
+```http
+GET /api/v1/batches/{batch_id}/results
+```
+
+### Get Exceptions
+
+```http
+GET /api/v1/batches/{batch_id}/exceptions
+```
+
+### Get Metrics
+
+```http
+GET /api/v1/batches/{batch_id}/metrics
+```
+
+### Get Cash Position
+
+```http
+GET /api/v1/batches/{batch_id}/cash-position
+```
+
+### Get Transaction Trace
+
+```http
+GET /api/v1/transactions/{payment_id}/trace
+```
+
+### Ask AI
+
+```http
+POST /api/v1/ai/query
+```
+
+Request:
+
+```json
+{
+  "batch_id": "batch_001",
+  "question": "Which unresolved exception has the highest monetary impact?"
+}
+```
+
+Response:
+
+```json
+{
+  "answer": "Payment pay_087 has the highest unresolved impact at ₹300...",
+  "record_ids": ["pay_087", "setl_087", "bank_087"],
+  "tools_used": ["list_exceptions", "get_transaction_trace"],
+  "requires_review": true
+}
+```
+
+**Full API documentation**: http://localhost:8000/docs
+
+---
+
+## Evaluation
+
+### Metrics
+
+SettleSense reports the following metrics:
+
+| Metric | Formula | Purpose |
+|--------|---------|---------|
+| Match Rate | Correct matches / Total records | Overall accuracy |
+| Precision | Correct auto-matches / All auto-matches | Auto-match reliability |
+| Recall | Correct auto-matches / True matches | Match coverage |
+| Exception Capture | Correct exceptions / Actual exceptions | Exception detection |
+| Monetary Variance | Σ\|Expected − Actual\| | Financial impact |
+| Throughput | Records / Seconds | Processing speed |
+
+### Benchmark Results
+
+```json
+{
+  "total_records": 100,
+  "records_processed": 100,
+  "fully_reconciled": 61,
+  "automatic_matches": 78,
+  "correct_automatic_matches": 76,
+  "match_rate": 0.82,
+  "precision": 0.974,
+  "recall": 0.89,
+  "exception_capture_rate": 0.90,
+  "total_monetary_variance_paise": 482000,
+  "processing_time_ms": 842,
+  "records_per_second": 118.76,
+  "false_automatic_matches": [],
+  "unresolved_high_value_cases": []
+}
+```
+
+### Run Evaluation
+
+```bash
+python scripts/run_benchmark.py
+```
+
+Output:
+
+- `evaluation/report.json` — Machine-readable metrics.
+- `evaluation/report.md` — Human-readable summary.
+
+---
+
+## Project Structure
+
