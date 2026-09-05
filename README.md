@@ -7,8 +7,6 @@
 [![Razorpay AI Buildathon 2026](https://img.shields.io/badge/Razorpay%20AI%20Buildathon-2026-blue)](#)
 [![Python](https://img.shields.io/badge/Python-3.12%2B-blue)](#)
 [![React](https://img.shields.io/badge/React-TypeScript-blue)](#)
-[![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)](#)
-[![License](https://img.shields.io/badge/License-MIT-lightgrey)](#)
 
 ## Razorpay AI Buildathon — Track 04: AI Finance Controller
 
@@ -61,14 +59,9 @@ The system processes a complete batch of synthetic payment records, reconciles t
 * [Project Structure](#project-structure)
 * [Running Locally](#running-locally)
 * [Docker](#docker)
-* [API](#api)
 * [Testing](#testing)
 * [Security & Reliability](#security--reliability)
 * [Design Principles](#design-principles)
-* [Limitations](#limitations)
-* [Future Work](#future-work)
-* [Documentation](#documentation)
-* [License](#license)
 
 ---
 
@@ -1113,124 +1106,6 @@ The tests cover:
 
 ---
 
-# API
-
-The backend exposes REST endpoints for the complete finance-ops workflow.
-
-## Health
-
-```http
-GET /health
-```
-
----
-
-## Create Batch
-
-```http
-POST /api/v1/batches
-```
-
-Accepts:
-
-```text
-internal_ledger
-settlements
-bank_statement
-```
-
----
-
-## Get Batch
-
-```http
-GET /api/v1/batches/{batch_id}
-```
-
----
-
-## Run Reconciliation
-
-```http
-POST /api/v1/batches/{batch_id}/reconcile
-```
-
----
-
-## Get Results
-
-```http
-GET /api/v1/batches/{batch_id}/results
-```
-
----
-
-## Get Exceptions
-
-```http
-GET /api/v1/batches/{batch_id}/exceptions
-```
-
----
-
-## Get Metrics
-
-```http
-GET /api/v1/batches/{batch_id}/metrics
-```
-
----
-
-## Get Cash Position
-
-```http
-GET /api/v1/batches/{batch_id}/cash-position
-```
-
----
-
-## Export Results
-
-```http
-GET /api/v1/batches/{batch_id}/export?format=csv
-```
-
----
-
-## Transaction Trace
-
-```http
-GET /api/v1/transactions/{payment_id}/trace
-```
-
----
-
-## AI Finance Query
-
-```http
-POST /api/v1/ai/query
-```
-
-Example:
-
-```json
-{
-  "batch_id": "batch_001",
-  "question": "Which exception has the highest monetary impact?"
-}
-```
-
-The response can include:
-
-```json
-{
-  "answer": "...",
-  "record_ids": ["pay_087"],
-  "tools_used": ["list_exceptions", "get_cash_position"]
-}
-```
-
----
 
 # Security & Reliability
 
@@ -1390,49 +1265,6 @@ A production deployment would require additional infrastructure for:
 * Stronger compliance controls
 * Production-grade provider integrations
 
----
-
-# Future Work
-
-## Multi-provider reconciliation
-
-Support multiple payment providers and banking formats through pluggable adapters.
-
-## Real-time reconciliation
-
-Move from batch processing to event-driven reconciliation.
-
-## ERP integration
-
-Integrate with accounting and ERP systems.
-
-## Advanced forecasting
-
-Use historical settlement behavior to improve cash forecasting.
-
-## Human-in-the-loop workflow
-
-Allow finance operators to approve, reject and annotate exceptions.
-
-## Production observability
-
-Add:
-
-* Structured logs
-* Metrics
-* Distributed traces
-* Alerting
-* SLA monitoring
-
-## Larger-scale processing
-
-Extend the architecture from hundreds of records to millions of records using:
-
-* PostgreSQL
-* Background workers
-* Queues
-* Partitioned processing
-* Incremental reconciliation
 
 ---
 
@@ -1446,124 +1278,6 @@ The repository contains additional engineering documentation:
 * [`TESTING.md`](./TESTING.md) — Testing strategy and coverage
 * [`VERIFICATION.md`](./VERIFICATION.md) — Step-by-step verification guide
 
----
-
-# Demo Checklist
-
-For a Buildathon demo, the recommended flow is:
-
-### Step 1 — Show the problem
-
-Explain that the same payment exists across:
-
-```text
-Internal Ledger
-Settlement Report
-Bank Statement
-```
-
-### Step 2 — Upload/process the batch
-
-Run the 100-record synthetic dataset.
-
-### Step 3 — Show the headline metrics
-
-Show:
-
-```text
-100 records processed
-71% match rate
-100% precision
-100% recall
-100% exception capture
-0 false auto-matches
-```
-
-### Step 4 — Show an exception
-
-Open an amount mismatch and demonstrate:
-
-```text
-Expected
-Actual
-Variance
-Source IDs
-Reason
-Evidence
-Recommended action
-```
-
-### Step 5 — Show cash position
-
-Demonstrate:
-
-```text
-Actual Cash
-Expected Cash
-Pending Settlements
-Variance
-Forecast
-```
-
-### Step 6 — Ask the AI
-
-Ask:
-
-```text
-Which unresolved exception has the highest monetary impact?
-```
-
-Then show that the answer references actual transaction evidence.
-
-### Step 7 — Show the honest failure case
-
-Demonstrate an ambiguous transaction.
-
-The system should say:
-
-```text
-NEEDS_HUMAN_REVIEW
-```
-
-rather than forcing a match.
-
----
-
-# The Core Demo Message
-
-> **SettleSense does not try to make every transaction look reconciled.**
->
-> It automatically resolves transactions when the evidence is strong, measures how well it performed, exposes the financial impact of exceptions, and sends ambiguous cases to humans instead of guessing.
-
----
-
-# Buildathon Alignment
-
-| Razorpay Buildathon Goal   | SettleSense Implementation                 |
-| -------------------------- | ------------------------------------------ |
-| Close one finance-ops loop | Payment → settlement → bank reconciliation |
-| 50+ record batch           | 100 logical payment records                |
-| Multi-source data          | 3 financial sources                        |
-| Throughput                 | Records/second benchmark                   |
-| Measured accuracy          | Precision + recall + match rate            |
-| Honest exception list      | 29 planted exceptions captured             |
-| Financial visibility       | Cash position + variance                   |
-| AI assistance              | Evidence-backed finance Q&A                |
-| Safety                     | Deterministic financial engine             |
-| Auditability               | Evidence + audit events                    |
-| Reproducibility            | Seeded synthetic dataset                   |
-| Reliability                | Idempotent processing                      |
-| Verification               | Automated test + benchmark suite           |
-
----
-
-# License
-
-This project is provided for educational, experimental and Buildathon purposes.
-
-See the repository license for the applicable terms.
-
----
 
 # Built for the Razorpay AI Buildathon 2026
 
